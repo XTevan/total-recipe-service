@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: total-recipe-service
+  data:
+      mongodb:
+          uri: mongodb://localhost:27017/recipedb
+
+swagger:
+  title: Total Recipe Service
+  description: A service that maintains recipes
+  version: 0.0.1
+
+  server:
+    contextPath: /api
