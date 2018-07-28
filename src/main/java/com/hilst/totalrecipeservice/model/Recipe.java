@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "recipes")
 public class Recipe {
@@ -93,5 +94,39 @@ public class Recipe {
 
     public void setInstructions(List<String> instructions) {
         this.instructions = instructions;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdIn=" + createdIn +
+                ", isVegetarian=" + isVegetarian +
+                ", imagePath='" + imagePath + '\'' +
+                ", portionSize=" + portionSize +
+                ", ingredients=" + ingredients +
+                ", instructions=" + instructions +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return isVegetarian == recipe.isVegetarian &&
+                portionSize == recipe.portionSize &&
+                Objects.equals(id, recipe.id) &&
+                Objects.equals(name, recipe.name) &&
+                Objects.equals(createdIn, recipe.createdIn) &&
+                Objects.equals(imagePath, recipe.imagePath) &&
+                Objects.equals(ingredients, recipe.ingredients) &&
+                Objects.equals(instructions, recipe.instructions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, createdIn, isVegetarian, imagePath, portionSize, ingredients, instructions);
     }
 }

@@ -11,4 +11,5 @@ swagger:
   version: 0.0.1
 
   server:
-    contextPath: /api
+    servlet:
+      contextPath: /api

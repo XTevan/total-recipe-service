@@ -1,11 +1,13 @@
 package com.hilst.totalrecipeservice.controller;
 
+import com.hilst.totalrecipeservice.exception.RecipeNotFoundException;
 import com.hilst.totalrecipeservice.model.Recipe;
 import com.hilst.totalrecipeservice.service.RecipeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/recipe")
@@ -22,8 +24,8 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public Recipe findOne(@PathVariable("id") Long id ) {
-        return service.findOne(id);
+    public Recipe findById(@PathVariable("id") Long id ) {
+        return service.findById(id).orElseThrow(RecipeNotFoundException::new);
     }
 
     @PostMapping
