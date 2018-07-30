@@ -12,19 +12,19 @@ public class Recipe {
     @Id
     private Long id;
     private String name;
-    private LocalDate createdIn;
+    private LocalDate createdAt;
     private boolean isVegetarian;
     private String imagePath;
     private int portionSize;
-    private List<String> ingredients;
+    private List<Object> ingredients;
     private List<String> instructions;
 
     public Recipe() {}
 
-    public Recipe(Long id, String name, LocalDate createdIn, boolean isVegetarian, String imagePath, int portionSize, List<String> ingredients, List<String> instructions) {
+    public Recipe(Long id, String name, LocalDate createdAt, boolean isVegetarian, String imagePath, int portionSize, List<Object> ingredients, List<String> instructions) {
         this.id = id;
         this.name = name;
-        this.createdIn = createdIn;
+        this.createdAt = createdAt;
         this.isVegetarian = isVegetarian;
         this.imagePath = imagePath;
         this.portionSize = portionSize;
@@ -48,12 +48,12 @@ public class Recipe {
         this.name = name;
     }
 
-    public LocalDate getCreatedIn() {
-        return createdIn;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedIn(LocalDate createdIn) {
-        this.createdIn = createdIn;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public boolean isVegetarian() {
@@ -80,11 +80,11 @@ public class Recipe {
         this.portionSize = portionSize;
     }
 
-    public List<String> getIngredients() {
+    public List<Object> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Object> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -101,7 +101,7 @@ public class Recipe {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", createdIn=" + createdIn +
+                ", createdAt=" + createdAt +
                 ", isVegetarian=" + isVegetarian +
                 ", imagePath='" + imagePath + '\'' +
                 ", portionSize=" + portionSize +
@@ -115,18 +115,11 @@ public class Recipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return isVegetarian == recipe.isVegetarian &&
-                portionSize == recipe.portionSize &&
-                Objects.equals(id, recipe.id) &&
-                Objects.equals(name, recipe.name) &&
-                Objects.equals(createdIn, recipe.createdIn) &&
-                Objects.equals(imagePath, recipe.imagePath) &&
-                Objects.equals(ingredients, recipe.ingredients) &&
-                Objects.equals(instructions, recipe.instructions);
+        return Objects.equals(id, recipe.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, createdIn, isVegetarian, imagePath, portionSize, ingredients, instructions);
+        return id.hashCode();
     }
 }

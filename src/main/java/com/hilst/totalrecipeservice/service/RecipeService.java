@@ -21,8 +21,8 @@ public class RecipeService {
         return repository.findAll();
     }
 
-    public Optional<Recipe> findById(Long id) {
-        return repository.findById(id);
+    public Recipe findById(Long id) {
+        return repository.findById(id).orElseThrow(RecipeNotFoundException::new);
     }
 
     public Recipe save(Recipe recipe) {

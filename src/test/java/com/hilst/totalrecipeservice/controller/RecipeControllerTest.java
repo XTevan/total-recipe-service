@@ -2,6 +2,7 @@ package com.hilst.totalrecipeservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hilst.totalrecipeservice.exception.RecipeNotFoundException;
 import com.hilst.totalrecipeservice.model.Recipe;
@@ -15,10 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -35,13 +33,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RecipeControllerTest {
     private static final Long ID_RECIPE = 1l;
     private static final String NAME = "Milk Shake";
-    private static final LocalDate CREATEDIN = LocalDate.of(2018,7,28);
-    private static final boolean ISVEGETARIAN = true;
-    private static final String IMAGEPATH = "";
-    private static final int PORTIONSIZE = 1;
-    private static final List<String> INGREDIENTS  = Arrays.asList("Milk", "Ice Cream", "Chocolate");
+    private static final LocalDate CREATED_AT = LocalDate.of(2018,7,28);
+    private static final boolean IS_VEGETARIAN = true;
+    private static final String IMAGE_PATH = "";
+    private static final int PORTION_SIZE = 1;
+    private static final List<Object> INGREDIENTS  = new ArrayList<>();
     private static final List<String> INSTRUCTIONS = Arrays.asList("Pour milk into ice cream while mixing","Add chocolate");
-    private static final Recipe RECIPE = new Recipe(ID_RECIPE, NAME,CREATEDIN,ISVEGETARIAN,IMAGEPATH,PORTIONSIZE,INGREDIENTS,INSTRUCTIONS);
+    private static final Recipe RECIPE = new Recipe(ID_RECIPE, NAME, CREATED_AT, IS_VEGETARIAN, IMAGE_PATH, PORTION_SIZE,INGREDIENTS,INSTRUCTIONS);
     private static final List<Recipe> RECIPES = Collections.singletonList(RECIPE);
 
     private ObjectMapper serialiser;
@@ -74,7 +72,7 @@ public class RecipeControllerTest {
 
     @Test
     public void findOneShouldCallServiceOnceAndReturnModel() throws Exception {
-        when(service.findById(ID_RECIPE)).thenReturn(Optional.of(RECIPE));
+        when(service.findById(ID_RECIPE)).thenReturn(RECIPE);
 
         mockMvc.perform(get("/recipe/1")
                 .contentType(APPLICATION_JSON))
@@ -86,7 +84,7 @@ public class RecipeControllerTest {
 
     @Test
     public void findOneShouldCallServiceOnceAndReturnNotFound() throws Exception {
-        when(service.findById(ID_RECIPE)).thenReturn(Optional.empty());
+        when(service.findById(ID_RECIPE)).thenThrow(new RecipeNotFoundException());
 
         mockMvc.perform(get("/recipe/1")
                 .contentType(APPLICATION_JSON))

@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/recipe")
 public class RecipeController {
     private RecipeService service;
@@ -24,8 +24,8 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public Recipe findById(@PathVariable("id") Long id ) {
-        return service.findById(id).orElseThrow(RecipeNotFoundException::new);
+    public Recipe findById(@PathVariable("id") Long id) {
+        return service.findById(id);
     }
 
     @PostMapping
