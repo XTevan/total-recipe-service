@@ -1,6 +1,7 @@
 # total-recipe-service
 
 ## Requirements
+- Java
 - Docker
 
 ## How To Run:
